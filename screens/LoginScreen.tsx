@@ -1,13 +1,18 @@
 import { TextInput, SafeAreaView, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
+import { useNavigation } from '@react-navigation/native';
+import { loginUser } from '../services/authService';   
 
 const LoginScreen = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation<any>();
 
   //   TODO: Login Function
-  const login = () => {}
+  const login = () => {
+    loginUser(email, password);
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -31,6 +36,9 @@ const LoginScreen = () => {
 
         <TouchableOpacity style={styles.button} onPress={login}>
             <Text style={styles.buttonText}>Login Button</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+        <Text style={styles.linkText}>Don't have an account? Sign up</Text>
         </TouchableOpacity>
 
         {/* TODO: Add Register Navigation */}
@@ -66,5 +74,11 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: 'center',
         color: 'white'
+    },
+    linkText: {
+        color: 'blue',
+        marginTop: 10,
+        textAlign: 'center',
     }
+
 })
